@@ -20,6 +20,6 @@ export const ROUTER: IROUTER[] = [
   {
     handler: UserRoute,
     middleware: [anyCheck, anyCheckTwo],
-    path: "/"
+    path: "/user"
   }
 ];

@@ -31,5 +31,7 @@ export abstract class BaseRepository {
     });
     return result;
   }
-  
+  public save(entity: IModel): Promise<IModel> {
+    return this.manager.save(entity);
+  }
 }

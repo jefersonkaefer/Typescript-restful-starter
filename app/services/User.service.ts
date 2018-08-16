@@ -1,11 +1,12 @@
 import { JWTService } from "./Jwt.service";
+import * as crypto from "crypto";
 import { getCustomRepository } from "typeorm";
 import { User } from "../models/User.model";
 import { UserRepository } from "../repository/User.repository";
 
 export class UserService {
   public static FindUser(email: string, password: string): Promise<User> {
-    let User: any = getCustomRepository(UserRepository).findUserAccount(
+    const User: any = getCustomRepository(UserRepository).findUserAccount(
       email,
       password
     );
@@ -15,7 +16,23 @@ export class UserService {
     email: string,
     password: string
   ): Promise<String> {
-    let User: any = await this.FindUser(email, password);
-    return await JWTService.signToken({ email: User.email, name: User.name });
+    const User: any = await this.FindUser(
+      email,
+      this.generateHashPassword(password, email)
+    );
+    return await JWTService.signToken({
+      id: User.id,
+      email: User.email,
+      name: User.name
+    });
+  }
+  public static async Save(user: User): Promise<User> {
+    const User: any = await getCustomRepository(UserRepository).save(user);
+    return User;
+  }
+  public static generateHashPassword(password: string, email: string): string {
+    const hash = crypto.createHmac("sha512", email);
+    hash.update(password);
+    return hash.digest("hex");
   }
 }

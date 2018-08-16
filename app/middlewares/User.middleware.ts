@@ -34,9 +34,14 @@ export function CheckCreate(
   res: express.Response,
   next: express.NextFunction
 ) {
-  req.body.text && typeof req.body.text === "string"
+  req.body.email &&
+  req.body.name &&
+  req.body.password &&
+  typeof req.body.email === "string" &&
+  typeof req.body.name === "string" &&
+  typeof req.body.password === "string"
     ? next()
-    : res.status(404).send({ text: "ERROR" });
+    : res.status(400).send({ text: "ERROR" });
 }
 
 export function CheckUpdate(
