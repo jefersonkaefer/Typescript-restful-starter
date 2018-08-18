@@ -1,9 +1,8 @@
 import * as express from "express";
-import * as jwt from "express-jwt";
-import { anyCheck, anyCheckTwo } from "../app/middlewares/Sample.middleware";
-import { SampleRoute } from "../app/routes/Sample.route";
+import { anyCheck, anyCheckTwo } from "../app/middlewares/User.middleware";
+import { validateTokenJWT } from "../app/middlewares/Auth.middleware";
 import { UserRoute } from "../app/routes/User.route";
-import { config } from "../config";
+import { AuthRoute } from "../app/routes/Auth.route";
 
 interface IROUTER {
   path: string;
@@ -13,13 +12,13 @@ interface IROUTER {
 
 export const ROUTER: IROUTER[] = [
   {
-    handler: SampleRoute,
-    middleware: [jwt({ secret: config.SECRET })],
-    path: "/sample"
+    handler: AuthRoute,
+    middleware: [anyCheck, anyCheckTwo],
+    path: "/authenticate"
   },
   {
     handler: UserRoute,
-    middleware: [anyCheck, anyCheckTwo],
+    middleware: [anyCheck, anyCheckTwo, validateTokenJWT],
     path: "/user"
   }
 ];

@@ -14,18 +14,6 @@ export class JWTService {
       });
     });
   }
-
-  public static verifyToken(token: string, options: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      JWT.verify(token, config.SECRET, (err, decoded) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(decoded);
-      });
-    });
-  }
-
   public static extractToken(req: express.Request) {
     return new Promise((resolve, reject) => {
       bearer(req, (err: Error, token: string) => {

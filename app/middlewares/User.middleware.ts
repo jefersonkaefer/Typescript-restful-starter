@@ -1,6 +1,7 @@
 import { config } from "./../../config";
 import * as express from "express";
-import * as JWT from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
+import { JWTService } from "../services/Jwt.service";
 export function anyCheck(
   req: express.Request,
   res: express.Response,
@@ -15,9 +16,13 @@ export function validateTokenJWT(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  JWT.verify(req.headers.authorization, config.SECRET)
-    ? next()
-    : res.status(401).send({ text: "ERROR Authentication" });
+  jwt.verify(req.headers.authorization, config.SECRET, (err, result) => {
+    if (err) {
+      console.log("Auth error", err);
+      res.status(401).send("Failed on second middleware");
+    }
+    next();
+  });
 }
 export function anyCheckTwo(
   req: express.Request,
