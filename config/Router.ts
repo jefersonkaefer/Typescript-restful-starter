@@ -1,28 +1,24 @@
 import * as express from "express";
-import * as jwt from "express-jwt";
-import { anyCheck, anyCheckTwo } from "../app/middlewares/Sample.middleware";
-import { JWTRoute } from "../app/routes/Jwt.route";
-import { SampleRoute } from "../app/routes/Sample.route";
-import { config } from "../config";
+import { anyCheck, anyCheckTwo } from "../app/middlewares/User.middleware";
+import { validateTokenJWT } from "../app/middlewares/Auth.middleware";
+import { UserRoute } from "../app/routes/User.route";
+import { AuthRoute } from "../app/routes/Auth.route";
 
 interface IROUTER {
-    path: string;
-    middleware: any[];
-    handler: express.Router;
+  path: string;
+  middleware: any[];
+  handler: express.Router;
 }
 
-export const ROUTER: IROUTER[] = [{
-    handler: JWTRoute,
-    middleware: [],
-    path: "/JWT",
-}, {
-    handler: SampleRoute,
-    middleware: [
-        jwt({secret: config.SECRET}),
-    ],
-    path: "/sample",
-}, {
-    handler: SampleRoute,
+export const ROUTER: IROUTER[] = [
+  {
+    handler: AuthRoute,
     middleware: [anyCheck, anyCheckTwo],
-    path: "/",
-}];
+    path: "/authenticate"
+  },
+  {
+    handler: UserRoute,
+    middleware: [anyCheck, anyCheckTwo, validateTokenJWT],
+    path: "/user"
+  }
+];
