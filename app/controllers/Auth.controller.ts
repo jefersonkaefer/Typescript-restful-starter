@@ -14,7 +14,7 @@ export class AuthController {
       return res.status(200).send({ token: token });
     } catch (ex) {
       return res
-        .status(404)
+        .status(204)
         .send({ text: "ERROR: User not found", token: false });
     }
   }

@@ -1,10 +1,12 @@
 import { createConnection } from "typeorm";
 import { config, DIALECT } from "../config";
 import { User } from "../app/models/User.model";
+import { MarketList } from "../app/models/MarketList.model";
+import { Product } from "../app/models/Product.model";
 
 export const Connection = createConnection({
   database: config.DATABASE.DB,
-  entities: [ User],
+  entities: [User, MarketList, Product],
   host: config.DATABASE.SERVER,
   logging: false,
   password: config.DATABASE.PASSWORD,

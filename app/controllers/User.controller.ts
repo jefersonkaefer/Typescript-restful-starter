@@ -17,8 +17,9 @@ export class UserController {
         .status(201)
         .send({ id: User.id, name: User.name, email: User.email });
     } catch (ex) {
-      console.log(ex);
-      return res.status(500).send({ text: "ERROR" });
+      return res.status(500).send({
+        error: { code: ex.code, errno: ex.errno }
+      });
     }
   }
 }

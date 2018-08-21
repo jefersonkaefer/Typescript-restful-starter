@@ -6,6 +6,6 @@ export const UserRoute: express.Router = express
   .Router()
   .post(
     "/create",
-    [UserMiddleware.CheckCreate, AuthMiddleware.validateTokenJWT],
+    [UserMiddleware.CheckCreate],
     UserController.Create
   );

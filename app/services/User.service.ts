@@ -24,7 +24,7 @@ export class UserService {
       id: User.id,
       email: User.email,
       name: User.name
-    },{expiresIn: 1 * 60});
+    },{expiresIn: 120 * 60});
   }
   public static async Save(user: User): Promise<User> {
     const User: any = await getCustomRepository(UserRepository).save(user);

@@ -3,6 +3,7 @@ import { anyCheck, anyCheckTwo } from "../app/middlewares/User.middleware";
 import { validateTokenJWT } from "../app/middlewares/Auth.middleware";
 import { UserRoute } from "../app/routes/User.route";
 import { AuthRoute } from "../app/routes/Auth.route";
+import { MarketRoute } from "../app/routes/Market.route";
 
 interface IROUTER {
   path: string;
@@ -20,5 +21,10 @@ export const ROUTER: IROUTER[] = [
     handler: UserRoute,
     middleware: [anyCheck, anyCheckTwo, validateTokenJWT],
     path: "/user"
+  },
+  {
+    handler: MarketRoute,
+    middleware: [],
+    path: "/market"
   }
 ];
