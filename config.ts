@@ -3,10 +3,10 @@ import { env } from "process";
 export const DIALECT = "postgres";
 
 const LOCAL_CONFIGURATION = {
-  DB: "house",
+  DB: "house_api",
   PASSWORD: "c0$M0$",
   PORT_DB: 5432,
-  SERVER: "172.2.0.2",
+  SERVER: "172.2.0.10",
   USER_DB: "cosmos"
 };
 

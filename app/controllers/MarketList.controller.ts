@@ -1,14 +1,13 @@
 import * as express from "express";
 import { MarketListService } from "../services/MarketList.service";
 import { MarketList } from "../models/MarketList.model";
+import { DatabaseError } from "../services/DatabaseError.helper";
 export class MarketListController {
   public static async Create(req: express.Request, res: express.Response) {
     const marketList: MarketList = new MarketList();
     marketList.name = req.body.name;
     marketList.id = req.body.id;
     marketList.products = req.body.products;
-    console.log(marketList);
-
     try {
       if (marketList.id == 0) {
         const response = await MarketListService.RemoveProductFromMarketList(
@@ -22,9 +21,11 @@ export class MarketListController {
       }
     } catch (ex) {
       console.log(ex);
-      return res.status(500).send({
-        error: { code: ex.code, errno: ex.errno }
-      });
+      return res
+        .status(500)
+        .send({
+          error: DatabaseError.getMessageError(ex)
+        });
     }
   }
   public static async GetList(req: express.Request, res: express.Response) {
@@ -41,7 +42,7 @@ export class MarketListController {
     } catch (ex) {
       console.log(ex);
       return res.status(500).send({
-        error: { code: ex.code, errno: ex.errno }
+        error: DatabaseError.getMessageError(ex)
       });
     }
   }
