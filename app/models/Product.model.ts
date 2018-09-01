@@ -1,11 +1,4 @@
-import {
-  Entity,
-  ManyToOne,
-  Column,
-  JoinColumn,
-  ManyToMany,
-  JoinTable
-} from "typeorm";
+import { Entity, Column, ManyToMany, JoinTable } from "typeorm";
 import { BaseModel } from "../models/BaseModel.model";
 import { MarketList } from "./MarketList.model";
 
@@ -13,12 +6,15 @@ import { MarketList } from "./MarketList.model";
 export class Product extends BaseModel {
   @Column({ nullable: false })
   public name: string;
-  @ManyToMany(type => MarketList, marketList => marketList.products, {
-    cascade: false,
-    eager: false,
+  @ManyToMany(type => MarketList, marketlists => marketlists.products, {
+    cascade: true,
+    onDelete: "NO ACTION",
+    onUpdate: "SET NULL",
     persistence: true,
     nullable: false
   })
-  @JoinTable({ name: "marketlist_products" })
-  public marketLists: MarketList[];
+  @JoinTable({
+    name: "marketlists_products"
+  })
+  public marketlists: MarketList[];
 }

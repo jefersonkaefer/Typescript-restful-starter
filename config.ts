@@ -1,13 +1,13 @@
 import { env } from "process";
 
-export const DIALECT = "mysql";
+export const DIALECT = "postgres";
 
 const LOCAL_CONFIGURATION = {
   DB: "house",
-  PASSWORD: "H0u$3",
-  PORT_DB: 3306,
-  SERVER: "172.2.0.4",
-  USER_DB: "root"
+  PASSWORD: "c0$M0$",
+  PORT_DB: 5432,
+  SERVER: "172.2.0.2",
+  USER_DB: "cosmos"
 };
 
 const PRODUCTION_CONFIGURATION = {

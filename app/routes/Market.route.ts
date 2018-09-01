@@ -4,4 +4,6 @@ import { MarketListController } from "../controllers/MarketList.controller";
 
 export const MarketRoute: express.Router = express
   .Router()
-  .post("/list/create", MarketListController.Create);
+  .post("/list", MarketListController.Create)
+  .get("/list", MarketListController.GetList)
+  .get("/list/all", MarketListController.GetAllLists);

@@ -20,11 +20,14 @@ export class UserService {
       email,
       this.generateHashPassword(password, email)
     );
-    return await JWTService.signToken({
-      id: User.id,
-      email: User.email,
-      name: User.name
-    },{expiresIn: 120 * 60});
+    return await JWTService.signToken(
+      {
+        id: User.id,
+        email: User.email,
+        name: User.name
+      },
+      { expiresIn: 120 * 60 }
+    );
   }
   public static async Save(user: User): Promise<User> {
     const User: any = await getCustomRepository(UserRepository).save(user);

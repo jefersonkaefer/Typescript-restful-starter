@@ -34,4 +34,7 @@ export abstract class BaseRepository {
   public save(entity: IModel): Promise<IModel> {
     return this.manager.save(entity);
   }
+  public findAll(): Promise<IModel[]> {
+    return this.manager.find(this.Entity.get());
+  }
 }

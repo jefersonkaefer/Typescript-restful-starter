@@ -4,6 +4,7 @@ import { validateTokenJWT } from "../app/middlewares/Auth.middleware";
 import { UserRoute } from "../app/routes/User.route";
 import { AuthRoute } from "../app/routes/Auth.route";
 import { MarketRoute } from "../app/routes/Market.route";
+import { ProductRoute } from "../app/routes/Product.route";
 
 interface IROUTER {
   path: string;
@@ -16,6 +17,11 @@ export const ROUTER: IROUTER[] = [
     handler: AuthRoute,
     middleware: [anyCheck, anyCheckTwo],
     path: "/authenticate"
+  },
+  {
+    handler: ProductRoute,
+    middleware: [anyCheck, anyCheckTwo],
+    path: "/product"
   },
   {
     handler: UserRoute,
